@@ -1,0 +1,168 @@
+body {
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: silver;
+}
+header {
+    background-color: #2c7dda;
+    width: 100%;
+    padding: 10px;
+}
+label { cursor: pointer; }
+.title {
+    text-align: center;
+    color: white;
+}
+.title::selection {
+    color: transparent;
+    background-color: transparent;
+}
+.since {
+    text-align: right;
+    color: white;
+    margin: auto 1rem;
+    font-size: 0.5rem;
+}
+.contents_container {
+    width: 70vw;
+    height: fit-content(auto);
+    background-color: white;
+    padding: 20px 0;
+    margin: 0 auto;
+}
+.contents_container > * {
+    margin: 5px auto;
+    margin-left: 5vw;
+}
+#target {
+    resize: vertical;
+    padding: 2px;
+    width: calc(60vw - 4px);
+    min-height: 1.2em;
+    height: 1.2em;
+    font-family: initial;
+}
+.visual {
+    user-select: none;
+    border: 0.5px solid silver;
+    padding: 5px;
+    background-color: #eee;
+    width: fit-content;
+    max-width: calc(60vw - 10px);
+    display: flex;
+    flex-direction: column;
+}
+.visual:has(#regexp:hover) {
+    border-color: gray;
+}
+.visual:has(#regexp:focus, .flags:hover) {
+    border-color: black;
+}
+.code {
+    display: flex;
+    align-items: center;
+}
+.code > span {
+    font-size: 1em;
+    user-select: text;
+}
+#regexp {
+    all: unset;
+    display: inline-block;
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    word-break: keep-all;
+    overflow-x: hidden;
+    font-family: "MPLUS One Code", monospace;
+    margin: 0;
+    min-width: 0.5em;
+    max-width: calc(70vw - 10vw - 10px - 0.5em * 8);
+    font-size: 100%;
+    border-bottom: 0.5px dashed transparent;
+}
+#regexp:hover { border-color: gray; }
+#regexp:focus { border-color: black; }
+#regexp:empty::before {
+    content: "(?:)";
+    color: rgb(117, 117, 117);
+    width: 2em;
+    pointer-events: none;
+}
+input[oninput*="#regexp"] { margin-left: 0.5em; }
+.flags {
+    display: inline-flex;
+    align-items: center;
+}
+.flags .flag {
+    color: silver;
+    cursor: pointer;
+    font-size: 1em;
+}
+[id^="flag"] { all: unset; }
+.flag { user-select: none; }
+.flag:hover { color: gray; }
+.flag:has(+ :checked) {
+    color: black;
+    user-select: text;
+}
+.options {
+    list-style-type: none;
+    padding: 0;
+    margin: 8px 0;
+}
+.options span { font-size: 0.8em; }
+#results {
+    display: flex;
+    flex-flow: column;
+    width: calc(60vw - 20px);
+    height: max-content;
+    padding: 10px;
+    border: 0.5px solid gray;
+}
+:disabled { background-color: transparent; }
+#error {
+    display: block;
+    width: fit-content;
+    height: 1rem;
+    color: red;
+    font-size: 0.5rem;
+    margin-top: 0;
+}
+.specials {
+    padding: 0;
+    margin-top: 5px;
+}
+.specials li { list-style-type: none; }
+.specials h4 { margin: 0; }
+.specials section {
+    display: flex;
+    height: fit-content;
+    width: 60vw;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.specials label { cursor: default; }
+.specials button { display: none; }
+.specials span[title] {
+    cursor: pointer;
+    font-family: monospace serif;
+    height: 1em;
+    width: fit-content(1em);
+    text-align: center;
+    background-color: rgb(255, 255, 220);
+    border: 0.5px solid orange;
+    border-radius: 0.4em;
+    padding: 5px;
+    margin: 5px 0;
+    margin-right: 5px;
+    display: inline-block;
+}
+.specials .disable > span[title] {
+    background-color: #ddd;
+    border-color: gray;
+}
+.specials i { color: rgb(128, 128, 128); }
+.specials i > i { color: rgb(192, 192, 192); }

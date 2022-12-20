@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+    <head>
+        <title>Regexist</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./font.css">
+        <link rel="stylesheet" href="./styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script>
+        if (
+            (window.location.hash == '#dark') ||
+            (window.location.hash != '#lite') &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches
+        ) {
+            document.head.insertAdjacentHTML(
+                'beforeend',
+                '<link rel="stylesheet" href="./dark.css">',
+            );
+        }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1 class="title">Regexist</h1>
+            <p class="since">2022/8/11</p>
+        </header>
+        <div class="contents_container">
+            <form class="main" onsubmit="return !1;" oninput="output(parse(target.value, escape_mode.checked), generate(regexp.textContent));">
+                <textarea placeholder="マッチさせる対象を入力してください" id="target"></textarea>
+                <div id="error"></div>
+                <div class="visual">
+                    <code class="code">
+                        <span>&#x2F;</span>
+                        <span>
+                            <span id="regexp" contenteditable></span>
+                        </span>
+                        <span>&#x2F;</span>
+                        <span class="flags">
+                            <label title="一致した位置を生成">
+                                <span class="flag">d</span>
+                                <input type="checkbox" id="flag_d">
+                            </label>
+                            <label title="グローバル検索">
+                                <span class="flag">g</span>
+                                <input type="checkbox" id="flag_g">
+                            </label>
+                            <label title="大文字・小文字を区別しない">
+                                <span class="flag">i</span>
+                                <input type="checkbox" id="flag_i">
+                            </label>
+                            <label title="複数行の検索">
+                                <span class="flag">m</span>
+                                <input type="checkbox" id="flag_m">
+                            </label>
+                            <label title='"."を改行文字にマッチさせる'>
+                                <span class="flag">s</span>
+                                <input type="checkbox" id="flag_s">
+                            </label>
+                            <label title="Unicodeコードポイントとして扱う">
+                                <span class="flag">u</span>
+                                <input type="checkbox" id="flag_u">
+                            </label>
+                            <label title="sticky検索">
+                                <span class="flag">y</span>
+                                <input type="checkbox" id="flag_y">
+                            </label>
+                        </span>
+                    </code>
+                    <input type="range" value="0" oninput="_scroll.call(this)">
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input id="escape_mode" type="checkbox">
+                            <span>対象をエスケープ文字として認識する</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <button onclick="copy()">正規表現をコピーする</button>
+                        </label>
+                    </li>
+                </ul>
+                <div id="results"></div>
+            </form>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>

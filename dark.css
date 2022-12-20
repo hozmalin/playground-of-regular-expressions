@@ -1,0 +1,43 @@
+body {
+    color: white;
+    background: #111;
+}
+header { background: rgb(44, 125, 218, 0.9); }
+.title, .since { color: black; }
+.contents_container { background: black; }
+#target {
+    background: transparent;
+    color: white;
+}
+.visual {
+    border-color: gray;
+    background: black;
+}
+.visual:has(#regexp:hover) {
+    border-color: silver;
+}
+.visual:has(#regexp:focus, .flags:hover) {
+    border-color: white;
+}
+#regexp:hover { border-color: gray; }
+#regexp:focus { border-color: white; }
+#regexp::placeholder { color: silver; }
+.flags .flag { color: gray; }
+.flag:hover { color: silver; }
+.flag:has(+ :checked) { color: white; }
+.results { border-color: gray; }
+:disabled { color: white; }
+.specials span[title] {
+    background: rgba(255, 166, 0, 0.25);
+    border-color: rgba(255, 166, 0, 0.75);
+}
+.specials .disable > span[title] {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.75);
+    color: black;
+}
+.specials .disable > span[title] i {
+    color: rgba(0, 0, 0, 0.5);
+}
+.specials i { color: rgb(165, 165, 165); }
+.specials i > i { color: rgb(115, 115, 115); }
