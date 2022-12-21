@@ -25,13 +25,13 @@
         </header>
         <div class="contents_container">
             <form class="main" onsubmit="return !1;" oninput="output(parse(target.value, escape_mode.checked), generate(regexp.textContent));">
-                <textarea placeholder="マッチさせる対象を入力してください" id="target"></textarea>
+                <textarea placeholder="マッチさせる対象を入力してください" id="target" translate="no"></textarea>
                 <div id="error"></div>
                 <div class="visual">
                     <code class="code">
                         <span>&#x2F;</span>
                         <span>
-                            <span id="regexp" contenteditable></span>
+                            <span id="regexp" translate="no" contenteditable></span>
                         </span>
                         <span>&#x2F;</span>
                         <span class="flags">
