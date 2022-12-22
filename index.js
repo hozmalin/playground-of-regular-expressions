@@ -34,7 +34,6 @@ function parse(str, bool) {
                     case 'n': return '\n';
                     case 'r': return '\r';
                     case 'f': return '\f';
-                    case '\x5C': return '\x5C'.repeat(2);
                 }
             } else return String.fromCodePoint(parseInt(matched, 16) || 0xFFFD);
         }).replace(/(?<!\x5C)\x5C(x|u)?/gi, new String());
