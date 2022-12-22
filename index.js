@@ -23,9 +23,9 @@ function parse(str, bool) {
             String.raw`(?<=\x5Cu\{)[0-9a-f]{5,6}(?=\})`,
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
-        return str.replace(regex, function (matched) {
-            if (matched.length == 1) {
-                switch (matched) {
+        return str.replace(regex, function (match) {
+            if (match.length == 1) {
+                switch (match) {
                     default: return match;
                     case '0': return '\0';
                     case 'b': return '\b';
@@ -35,7 +35,7 @@ function parse(str, bool) {
                     case 'r': return '\r';
                     case 'f': return '\f';
                 }
-            } else return String.fromCodePoint(parseInt(matched, 16) || 0xFFFD);
+            } else return String.fromCodePoint(parseInt(match, 16) || 0xFFFD);
         }).replace(/(?<!\x5C)\x5C(x|u)?/gi, new String());
     }
 }
