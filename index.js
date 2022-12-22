@@ -23,7 +23,7 @@ function parse(str, bool) {
             String.raw`(?<=\x5Cu\{)[0-9a-f]{6}(?=\})`,
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
-        const parsed = str.match(regex, function (match) {
+        return str.replace(regex, function (match) {
             if ((match.length - 1)) {
                 switch (match) {
                     default: return match;
@@ -37,7 +37,6 @@ function parse(str, bool) {
                 }
             } else return String.fromCodePoint('0x' + match);
         });
-        console.log(parsed);
     }
 }
 function output(str='', {source, flags}) {
