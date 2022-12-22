@@ -24,7 +24,6 @@ function parse(str, bool) {
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
         return str.replace(regex, function (matched) {
-            console.log(matched);
             if (matched.length == 1) {
                 switch (matched) {
                     default: return match;
@@ -35,9 +34,10 @@ function parse(str, bool) {
                     case 'n': return '\n';
                     case 'r': return '\r';
                     case 'f': return '\f';
+                    case '\x5C': return '\x5C'.repeat(2);
                 }
             } else return String.fromCodePoint(parseInt(matched, 16) || 0xFFFD);
-        });
+        }).replace(/(?<!\x5C)\x5C(x|u)?/gi, new String());
     }
 }
 function output(str='', {source, flags}) {
