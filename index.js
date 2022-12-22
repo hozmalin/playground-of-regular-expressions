@@ -24,8 +24,9 @@ function parse(str, bool) {
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
         return str.replace(regex, function (match) {
-            console.log(match, (match.length - 1));
+            return '大'; // 丈夫そ？？
             if ((match.length - 1)) {
+                console.log(match);
                 switch (match) {
                     default: return match;
                     case '0': return '\0';
