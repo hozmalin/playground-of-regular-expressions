@@ -20,11 +20,11 @@ function parse(str, bool) {
         const regex = new RegExp([
             String.raw`(?<=\x5Cx)[0-9a-f]{2}`,
             String.raw`(?<=\x5Cu)[0-9a-f]{4}`,
-            String.raw`(?<=\x5Cu\{)[0-9a-f]{6}(?=\})`,
+            String.raw`(?<=\x5Cu\{)[0-9a-f]{5,6}(?=\})`,
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
         return str.replace(regex, function (match) {
-            console.log(match);
+            console.log(match, (match.length - 1));
             if ((match.length - 1)) {
                 switch (match) {
                     default: return match;
@@ -37,7 +37,6 @@ function parse(str, bool) {
                     case 'f': return '\f';
                 }
             } else {
-                console.log(match);
                 const code_point = parseInt(match, 16);
                 return isNaN(code_point) ? new String() : String.fromCodePoint(code_point);
             }
