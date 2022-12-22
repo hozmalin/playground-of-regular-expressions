@@ -18,10 +18,10 @@ function parse(str, bool) {
     if (!bool) return str
     else {
         const regex = new RegExp([
-            '(?<=\x5Cx)[0-9a-f]{2}',
-            '(?<=\x5Cu)[0-9a-f]{4}',
-            '(?<=\x5Cu\{)[0-9a-f]{6}(?=\})',
-            '(?<=(?<!\x5C)\x5C)[0btvnrf\'"`\x5C]'
+            String.raw`(?<=\x5Cx)[0-9a-f]{2}`,
+            String.raw`(?<=\x5Cu)[0-9a-f]{4}`,
+            String.raw`(?<=\x5Cu\{)[0-9a-f]{6}(?=\})`,
+            String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'giu');
         return str.match(regex, function (match) {
             if ((match.length - 1)) {
