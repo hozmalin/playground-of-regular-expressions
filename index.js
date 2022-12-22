@@ -17,18 +17,26 @@ function parse(str, bool) {
     clear('#error');
     if (!bool) return str
     else {
-        const output = document.getElementById('error');
-        let parsed = '';
-        try {
-            parsed = eval(`"${
-                str
-                    .replace(/[^\\]"/, '\\"')
-                    .replace(/\n/, '\\n')
-            }"`);
-        } catch ({name, message}) {
-            output.innerHTML = `${name}: ${message}`;
-        }
-        return parsed;
+        const regex = new RegExp([
+            '(?<=\x5Cx)[0-9a-f]{2}', // \x00
+            '(?<=\x5Cu)[0-9a-f]{4}', // \u0000
+            '(?<=\x5Cu\{)[0-9a-f]{6}(?=\})', // \u{000000}
+            '(?<=(?<!\x5C)\x5C)[0btvnrf'"`\x5C]' // \n, \t, \0 とか
+        ].join('|'), 'giu');
+        return str.match(regex, function (match) {
+            if ((match.length - 1)) {
+                switch (match) {
+                    default: return match;
+                    case '0': return '\0';
+                    case 'b': return '\b';
+                    case 't': return '\t';
+                    case 'v': return '\v';
+                    case 'n': return '\n';
+                    case 'r': return '\r';
+                    case 'f': return '\f';
+                }
+            } else return String.fromCodePoint('0x' + match);
+        });
     }
 }
 function output(str='', {source, flags}) {
