@@ -35,7 +35,7 @@ function parse(str, bool) {
                     case 'r': return '\r';
                     case 'f': return '\f';
                 }
-            } else return String.fromCodePoint('0x' + match);
+            } else return isNaN(match) ? '' : String.fromCodePoint('0x' + match);
         });
     }
 }
