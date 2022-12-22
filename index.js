@@ -24,6 +24,7 @@ function parse(str, bool) {
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
         return str.replace(regex, function (match) {
+            console.log(match);
             if ((match.length - 1)) {
                 switch (match) {
                     default: return match;
@@ -36,6 +37,7 @@ function parse(str, bool) {
                     case 'f': return '\f';
                 }
             } else {
+                console.log(match);
                 const code_point = parseInt(match, 16);
                 return isNaN(code_point) ? new String() : String.fromCodePoint(code_point);
             }
