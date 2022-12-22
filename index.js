@@ -22,7 +22,7 @@ function parse(str, bool) {
             String.raw`(?<=\x5Cu)[0-9a-f]{4}`,
             String.raw`(?<=\x5Cu\{)[0-9a-f]{6}(?=\})`,
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
-        ].join('|'), 'giu');
+        ].join('|'), 'gi');
         return str.match(regex, function (match) {
             if ((match.length - 1)) {
                 switch (match) {
