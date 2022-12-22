@@ -23,8 +23,8 @@ function parse(str, bool) {
             String.raw`(?<=\x5Cu\{)[0-9a-f]{5,6}(?=\})`,
             String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
         ].join('|'), 'gi');
-        console.log(matched);
         return str.replace(regex, function (matched) {
+            console.log(matched);
             if (matched.length == 1) {
                 switch (matched) {
                     default: return match;
