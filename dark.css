@@ -9,19 +9,19 @@ header { background: rgb(44, 125, 218, 0.9); }
     background: transparent;
     color: white;
 }
-.visual {
+.regex_container {
     border-color: gray;
     background: black;
 }
-.visual:has(#regexp:hover) {
+.regex_container:has(#display:hover) {
     border-color: silver;
 }
-.visual:has(#regexp:focus, .flags:hover) {
+.regex_container:has(#display:focus, .flags:hover) {
     border-color: white;
 }
-#regexp:hover { border-color: gray; }
-#regexp:focus { border-color: white; }
-#regexp::placeholder { color: silver; }
+#display:hover { border-color: gray; }
+#display:focus { border-color: white; }
+#display::placeholder { color: silver; }
 .flags .flag { color: gray; }
 .flag:hover { color: silver; }
 .flag:has(+ :checked) { color: white; }

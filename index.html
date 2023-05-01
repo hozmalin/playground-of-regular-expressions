@@ -24,15 +24,16 @@
             <p class="since">2022/8/11</p>
         </header>
         <div class="contents_container">
-            <form class="main" onsubmit="return !1;" oninput="output(parse(target.value, escape_mode.checked), generate(regexp.textContent));">
-                <textarea placeholder="マッチさせる対象を入力してください" id="target" translate="no"></textarea>
+            <form class="main" onsubmit="return !1;" oninput="output(parse(target.value, escape_mode.checked), generate(regexp.value));">
+                <textarea placeholder="マッチさせる対象を入力してください" id="target"></textarea>
                 <div id="error"></div>
-                <div class="visual">
+                <div class="regex_container">
                     <code class="code">
                         <span>&#x2F;</span>
-                        <span>
-                            <span id="regexp" translate="no" contenteditable></span>
-                        </span>
+                        <label class="prompt">
+                            <input id="regexp" type="text">
+                            <span id="display"></span>
+                        </label>
                         <span>&#x2F;</span>
                         <span class="flags">
                             <label title="一致した位置を生成">
@@ -65,13 +66,12 @@
                             </label>
                         </span>
                     </code>
-                    <input type="range" value="0" oninput="_scroll.call(this)">
                 </div>
                 <ul class="options">
                     <li>
-                        <label>
+                        <label class="options_adjust">
                             <input id="escape_mode" type="checkbox">
-                            <span>対象をエスケープ文字として認識する</span>
+                            <span>マッチ対象のエスケープ文字を認識する</span>
                         </label>
                     </li>
                     <li>

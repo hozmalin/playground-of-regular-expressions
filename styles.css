@@ -28,7 +28,7 @@ label { cursor: pointer; }
 }
 .contents_container {
     width: 70vw;
-    height: fit-content(auto);
+    height: max-content;
     background-color: white;
     padding: 20px 0;
     margin: 0 auto;
@@ -38,16 +38,17 @@ label { cursor: pointer; }
     margin-left: 5vw;
 }
 #target {
-    resize: vertical;
     padding: 2px;
     width: calc(60vw - 4px);
     min-height: 1.2em;
     height: 1.2em;
     font-family: initial;
+    resize: none;
+    overflow-y: hidden;
 }
-.visual {
+.regex_container {
     user-select: none;
-    border: 0.5px solid silver;
+    border: 1px solid silver;
     padding: 5px;
     background-color: #eee;
     width: fit-content;
@@ -55,10 +56,10 @@ label { cursor: pointer; }
     display: flex;
     flex-direction: column;
 }
-.visual:has(#regexp:hover) {
+.regex_container:has(:hover + #display) {
     border-color: gray;
 }
-.visual:has(#regexp:focus, .flags:hover) {
+.regex_container:has(:focus + #display, .flags:hover) {
     border-color: black;
 }
 .code {
@@ -69,12 +70,24 @@ label { cursor: pointer; }
     font-size: 1em;
     user-select: text;
 }
+.prompt {
+    display: flex;
+    align-items: center;
+}
 #regexp {
     all: unset;
+    width: calc(70vw - 10vw - 10px - 0.5em * 8);
+    position: absolute;
+    color: transparent;
+    caret-color: black;
+    font-family: "MPLUS One Code", monospace;
+    font-size: 100%;
+}
+:hover + #display { border-color: gray; }
+:focus + #display { border-color: black; }
+#display {
+    all: unset;
     display: inline-block;
-    -moz-user-modify: read-write;
-    -webkit-user-modify: read-write;
-    word-break: keep-all;
     overflow-x: hidden;
     font-family: "MPLUS One Code", monospace;
     margin: 0;
@@ -83,16 +96,15 @@ label { cursor: pointer; }
     font-size: 100%;
     border-bottom: 0.5px dashed transparent;
 }
-#regexp:hover { border-color: gray; }
-#regexp:focus { border-color: black; }
-#regexp:empty::before {
+#display:empty::before {
     content: "(?:)";
     color: rgb(117, 117, 117);
     width: 2em;
     pointer-events: none;
 }
-input[oninput*="#regexp"] { margin-left: 0.5em; }
+input[oninput*="#display"] { margin-left: 0.5em; }
 .flags {
+    z-index: 1;
     display: inline-flex;
     align-items: center;
 }
@@ -119,6 +131,7 @@ input[oninput*="#regexp"] { margin-left: 0.5em; }
     flex-flow: column;
     width: calc(60vw - 20px);
     height: max-content;
+    overflow-x: auto;
     padding: 10px;
     border: 0.5px solid gray;
 }
@@ -166,3 +179,8 @@ input[oninput*="#regexp"] { margin-left: 0.5em; }
 }
 .specials i { color: rgb(128, 128, 128); }
 .specials i > i { color: rgb(192, 192, 192); }
+.options label {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
