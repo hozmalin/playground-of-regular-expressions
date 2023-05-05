@@ -40,10 +40,10 @@ label { cursor: pointer; }
 #target {
     padding: 2px;
     width: calc(60vw - 4px);
-    min-height: 1.2em;
-    height: 1.2em;
+    min-height: 1lh;
+    height: 1lh;
     font-family: initial;
-    resize: none;
+    resize: vertical;
     overflow-y: hidden;
 }
 .regex_container {
@@ -126,15 +126,6 @@ input[oninput*="#display"] { margin-left: 0.5em; }
     margin: 8px 0;
 }
 .options span { font-size: 0.8em; }
-#results {
-    display: flex;
-    flex-flow: column;
-    width: calc(60vw - 20px);
-    height: max-content;
-    overflow-x: auto;
-    padding: 10px;
-    border: 0.5px solid gray;
-}
 :disabled { background-color: transparent; }
 #error {
     display: block;
@@ -144,43 +135,20 @@ input[oninput*="#display"] { margin-left: 0.5em; }
     font-size: 0.5rem;
     margin-top: 0;
 }
-.specials {
-    padding: 0;
-    margin-top: 5px;
-}
-.specials li { list-style-type: none; }
-.specials h4 { margin: 0; }
-.specials section {
+#results {
     display: flex;
-    height: fit-content;
-    width: 60vw;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    flex-direction: column;
+    width: calc(60vw - 20px);
+    height: max-content;
+    overflow-x: auto;
+    padding: 10px;
+    border: 0.5px solid gray;
 }
-.specials label { cursor: default; }
-.specials button { display: none; }
-.specials span[title] {
-    cursor: pointer;
-    font-family: monospace serif;
-    height: 1em;
-    width: fit-content(1em);
-    text-align: center;
-    background-color: rgb(255, 255, 220);
-    border: 0.5px solid orange;
-    border-radius: 0.4em;
-    padding: 5px;
-    margin: 5px 0;
-    margin-right: 5px;
-    display: inline-block;
+.section {
+    margin: 0 auto;
 }
-.specials .disable > span[title] {
-    background-color: #ddd;
-    border-color: gray;
-}
-.specials i { color: rgb(128, 128, 128); }
-.specials i > i { color: rgb(192, 192, 192); }
-.options label {
+.items {
     display: flex;
-    align-items: center;
-    width: fit-content;
+    flex-direction: row;
+    align-items: baseline;
 }

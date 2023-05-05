@@ -19,41 +19,45 @@ function parse(str, bool) {
     else {
         const regex = new RegExp(
             [
-                String.raw`(?<=\x5Cx)[0-9a-f]{2}`,
-                String.raw`(?<=\x5Cu)[0-9a-f]{4}`,
-                String.raw`(?<=\x5Cu\{)[0-9a-f]{5,6}(?=\})`,
-                String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf'"\`\x5C]`
-            ].join('|'), 'gi'
+                String.raw`(?<=\x5Cx)[0-9a-fA-F]{2}`,
+                String.raw`(?<=\x5Cu)[0-9a-fA-F]{4}`,
+                String.raw`(?<=\x5Cu{)[0-9a-fA-F]{1,6}(?=})`,
+                String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf]`,
+            ].join('|'), 'g'
         );
         return str.replace(regex, function (match) {
-            if (match.length == 1) {
-                switch (match) {
-                    default: return match;
-                    case '0': return '\0';
-                    case 'b': return '\b';
-                    case 't': return '\t';
-                    case 'v': return '\v';
-                    case 'n': return '\n';
-                    case 'r': return '\r';
-                    case 'f': return '\f';
-                }
-            } else return String.fromCodePoint(parseInt(match, 16) || 0xFFFD);
-        }).replace(/(?<!\x5C)\x5C(x|u)?/gi, new String());
+            switch (match) {
+                case '0': return '\0';
+                case 'b': return '\b';
+                case 't': return '\t';
+                case 'v': return '\v';
+                case 'n': return '\n';
+                case 'r': return '\r';
+                case 'f': return '\f';
+            }
+            try {
+                return String.fromCodePoint(parseInt(match, 16));
+            }
+            catch {
+                return '\uFFFD';
+            }
+        }).replace(/(?<!\x5C)\x5C(x|u)?((?<=\x5Cu){|(?<=\x5Cu{.)})?/g, new String());
     }
 }
 function output(str='', {source, flags}) {
     clear('#results');
-    const results = new RegExp(source, flags).exec(str);
-    document.querySelector('#results').innerHTML = results;
+    const regex = new RegExp(source, flags);
+    const results = str.match(regex);
+    document.querySelector('#results').innerHTML = `<div class="items">${results?.join('<span style="color:red">,&nbsp;</span>') ?? 'null'}</div>`;
 }
 function copy() {
     document.getSelection().selectAllChildren(document.querySelector('.code'));
     navigator.clipboard.readText();
 }
 
-document.getElementById('regexp').addEventListener('input', function () {
+function update() {
     const display = document.getElementById('display');
-    display.innerHTML = this.value;
+    display.textContent = this.value;
     const regexp = document.getElementById('regexp');
     const {maxWidth} = window.getComputedStyle(display);
     const {width: currentWidth} = window.getComputedStyle(regexp);
@@ -64,7 +68,8 @@ document.getElementById('regexp').addEventListener('input', function () {
         display.style.setProperty('color', 'revert');
         regexp.style.setProperty('color', 'transparent');
     }
-});
-document.getElementById('target').addEventListener('input', function ({target}) {
-    target.style.height = target.value.split('\n').length * 1.5 + 'em';
+}
+document.getElementById('regexp').addEventListener('input', update);
+document.getElementById('target').addEventListener('input', function () {
+    this.style.height = this.value.split('\n').length + 'lh';
 });
