@@ -19,9 +19,9 @@ function parse(str, bool) {
     else {
         const regex = new RegExp(
             [
-                String.raw`(?<=\x5Cx)[0-9a-fA-F]{2}`,
-                String.raw`(?<=\x5Cu)[0-9a-fA-F]{4}`,
-                String.raw`(?<=\x5Cu{)[0-9a-fA-F]{1,6}(?=})`,
+                String.raw`(?<=(?<!\x5C)\x5Cx)[0-9a-fA-F]{2}`,
+                String.raw`(?<=(?<!\x5C)\x5Cu)[0-9a-fA-F]{4}`,
+                String.raw`(?<=(?<!\x5C)\x5Cu{)[0-9a-fA-F]{1,6}(?=})`,
                 String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf]`,
             ].join('|'), 'g'
         );
