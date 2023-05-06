@@ -19,11 +19,11 @@ function parse(str, bool) {
     else {
         const regex = new RegExp(
             [
-                String.raw`(?<=(?<!\x5C)\x5Cx)[0-9a-fA-F]{2}`,
-                String.raw`(?<=(?<!\x5C)\x5Cu)[0-9a-fA-F]{4}`,
-                String.raw`(?<=(?<!\x5C)\x5Cu{)[0-9a-fA-F]{1,6}(?=})`,
+                String.raw`(?<=(?<!\x5C)\x5Cx)\p{Hex_Digit}{2}`,
+                String.raw`(?<=(?<!\x5C)\x5Cu)\p{Hex_Digit}{4}`,
+                String.raw`(?<=(?<!\x5C)\x5Cu{)\p{Hex_Digit}{1,6}(?=})`,
                 String.raw`(?<=(?<!\x5C)\x5C)[0btvnrf]`,
-            ].join('|'), 'g'
+            ].join('|'), 'gu'
         );
         return str.replace(regex, function (match) {
             switch (match) {
