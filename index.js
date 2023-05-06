@@ -1,7 +1,7 @@
 function clear(selector) {
     document.querySelector(selector).replaceChildren();
 }
-function generate(input) {
+function parse(input) {
     clear('#error');
     const output = document.getElementById('error');
     const flags = Array.from(document.querySelectorAll('.flags > label > [id^="flag_"]:checked')).map(f => f.id.split('flag_')[1]).join('');
@@ -15,7 +15,7 @@ function generate(input) {
     if (!(regex instanceof RegExp)) (regex = new RegExp('(?:)', flags));
     return regex;
 }
-function parse(str, bool) {
+function replace(str, bool) {
     if (!bool) return str;
     else {
         const regex = new RegExp(
@@ -45,11 +45,12 @@ function parse(str, bool) {
         }).replace(/(?<!\x5C)\x5C(x|u)?((?<=\x5Cu){|(?<=\x5Cu{.)})?/g, new String());
     }
 }
-function output(str='', {source, flags}) {
+function output(str, {source, flags}) {
     clear('#results');
     const regex = new RegExp(source, flags);
-    const results = str.match(regex);
-    document.querySelector('#results').innerHTML = `<div class="items">${results?.join('<span style="color:red">,&nbsp;</span>') ?? 'null'}</div>`;
+    const results = str?.match(regex);
+    const comma = '<span style="color:red">,&nbsp;</span>';
+    document.querySelector('#results').innerHTML = `<div class="items">${results?.join(comma) ?? 'null'}</div>`;
 }
 function copy() {
     document.getSelection().selectAllChildren(document.querySelector('.code'));
