@@ -8,14 +8,15 @@ function generate(input) {
     let regex;
     try {
         regex = new RegExp(input, flags);
-    } catch ({name, message}) {
+    }
+    catch ({name, message}) {
         output.innerHTML = `${name}: ${message}`;
     }
-    if (!(regex instanceof RegExp)) (regex = new RegExp('', flags));
+    if (!(regex instanceof RegExp)) (regex = new RegExp('(?:)', flags));
     return regex;
 }
 function parse(str, bool) {
-    if (!bool) return str
+    if (!bool) return str;
     else {
         const regex = new RegExp(
             [
@@ -64,7 +65,8 @@ function update() {
     if (currentWidth <= maxWidth) {
         display.style.setProperty('color', 'transparent');
         regexp.style.setProperty('color', 'revert');
-    } else {
+    }
+    else {
         display.style.setProperty('color', 'revert');
         regexp.style.setProperty('color', 'transparent');
     }
