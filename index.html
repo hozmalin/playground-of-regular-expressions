@@ -24,7 +24,7 @@
             <p class="since">2022/8/11</p>
         </header>
         <div class="contents_container">
-            <form class="main" onsubmit="return !1;" oninput="output(parse(target.value, escape_mode.checked), generate(regexp.value));">
+            <form class="main" onsubmit="return false;" oninput="output(replace(target.value, escape_mode.checked), parse(regexp.value));">
                 <textarea placeholder="マッチさせる対象を入力してください" id="target"></textarea>
                 <div id="error"></div>
                 <div class="regex_container">
